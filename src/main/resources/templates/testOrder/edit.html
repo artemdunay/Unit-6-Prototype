@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create!</title>
+    <title>Edit Order!</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -63,25 +63,18 @@
 <body>
 <br>
 <div class="container">
-    <form th:method="POST" th:action="@{/test}" th:object="${testOrder}" class="container">
-        <h1>Input Your Details:</h1>
-        <label for="name">Enter Name of the Order:</label>
+    <form th:method="patch" th:action="@{/order/{id}(id=${testOrder.getId()})}" th:object="${testOrder}">
+        <h1>Edit Your Details:</h1>
+        <label for="name">Edit Name of the Order:</label>
         <label for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
         <input name="name" type="text" th:field="*{name}" id="name"/>
-        <label for="customerName">Enter Your Name:</label>
-        <label for="customerName" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}"></label>
-        <input name="customerName" type="text" th:field="*{customerName}" id="customerName"/>
-        <label for="comment">Enter Your Email:</label>
-        <label for="customerEmail" th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}"></label>
-        <input name="customerEmail" type="text" th:field="*{customerEmail}" id="customerEmail">
-        <label for="comment">Enter Comment:</label>
+        <label for="comment">Edit Comment:</label>
         <label for="comment" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></label>
         <input name="comment" type="text" th:field="*{comment}" id="comment">
-        <label for="amount">Enter Amount:</label>
+        <label for="amount">Edit Amount:</label>
         <label for="amount" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></label>
         <input name="amount" type="number" th:field="*{amount}" id="amount">
-        <br>
-        <input type="submit" value="Submit!">
+        <input type="submit" value="Update!">
     </form>
 </div>
 </body>

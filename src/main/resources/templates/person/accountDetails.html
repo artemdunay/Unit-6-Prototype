@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Test Order</title>
+    <title>Account Information</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -23,16 +24,26 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        div.center {
-            margin: auto;
-            display: block;
-            text-align: center;
-        }
-
-
         h1 {
             color: #000000;
             text-align: center;
+        }
+
+        a {
+            text-align: center;
+            display: block;
+            width: auto;
+            padding: 10px;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #fff;
+            background-color: #6a1b9a;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #3c005e;
         }
 
         p {
@@ -92,27 +103,39 @@
 <body>
 <br>
 <div class="container">
-    <h1>Test Order Information:</h1>
+    <h1>Account Information:</h1>
     <p>ID:</p>
-    <p class="info" th:text="${testOrder.getId()}"></p>
+    <p class="info" th:text="${personDetails.getId()}"></p>
+    <p>Username:</p>
+    <p class="info" th:text="${personDetails.getUsername()}"></p>
+    <p>Roles:</p>
+    <div th:each="autority: ${personDetails.getAuthorities()}">
+        <a th:text="${autority.getAuthority()}">Order</a>
+    </div>
     <p>Name:</p>
-    <p class="info" th:text="${testOrder.getName()}"></p>
-    <p>Customer Name:</p>
-    <p class="info" th:text="${testOrder.getCustomerName()}"></p>
+    <p class="info" th:text="${personDetails.getName()}"></p>
     <p>Email:</p>
-    <p class="info" th:text="${testOrder.getCustomerEmail()}"></p>
-    <p>Comment:</p>
-    <p class="info" th:text="${testOrder.getComment()}"></p>
-    <p>Amount:</p>
-    <p class="info" th:text="${testOrder.getAmount()}"></p>
-    <div class="center">
-        <button>
-            <a th:href="@{/test/{id}/edit(id=${testOrder.getId()})}">Edit!</a>
-        </button>
+    <p class="info" th:text="${personDetails.getEmail()}"></p>
+    <p>Orders:</p>
+    <div th:each="testOrder: ${testOrders}">
+        <a th:href="@{/order/{id}(id=${testOrder.getId()})}" th:text="${testOrder.getName()}">Order</a>
     </div>
     <br>
-    <form th:method="delete" th:action="@{/test/{id}/delete(id=${testOrder.getId()})}">
-        <button type="submit">Delete!</button>
+    <a th:href="@{/order/new}"> Add order!</a>
+    <br>
+    <a th:href="@{/account/edit}"> Edit Details!</a>
+    <br>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin/list}"> List of Orders!</a>
+    </div>
+    <br>
+    <form th:method="delete" th:action="@{/account/delete}">
+        <button type="submit">Delete Account!</button>
+    </form>
+    <br>
+    <br>
+    <form th:action="@{/logout}" th:method="post">
+        <input type="submit" value="Logout!"/>
     </form>
 </div>
 </body>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Order</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(180deg, rgba(179, 0, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        div.container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        div.center {
+            margin: auto;
+            display: block;
+            text-align: center;
+        }
+
+
+        h1 {
+            color: #000000;
+            text-align: center;
+        }
+
+        a {
+            text-align: center;
+            display: block;
+            width: auto;
+            padding: 10px;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #fff;
+            background-color: #6a1b9a;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #000000;
+            text-align: center;
+        }
+
+        p.info {
+            display: block;
+            font-size: 1em;
+            padding: 5px;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #fff;
+            background-color: #6a1b9a;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #6a1b9a;
+            color: #fff;
+            margin: auto;
+            padding: 4px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        button a {
+            color: #fff;
+            margin: auto;
+        }
+
+        button:hover {
+            background-color: #3c005e;
+        }
+
+        form {
+            margin: auto;
+            text-align: center;
+        }
+
+        form button {
+            background-color: #000000;
+        }
+
+        form button:hover {
+            background-color: #3c005e;
+        }
+    </style>
+</head>
+<body>
+<br>
+<div class="container">
+    <h1>Test Order Information:</h1>
+    <p>ID:</p>
+    <p class="info" th:text="${testOrder.getId()}"></p>
+    <p>Name:</p>
+    <p class="info" th:text="${testOrder.getName()}"></p>
+    <p>Customer Name:</p>
+    <p class="info" th:text="${personDetails.getName()}"></p>
+    <p>Customer ID:</p>
+    <p class="info" th:text="${personDetails.getId()}"></p>
+    <p>Email:</p>
+    <p class="info" th:text="${personDetails.getEmail()}"></p>
+    <p>Comment:</p>
+    <p class="info" th:text="${testOrder.getComment()}"></p>
+    <p>Amount:</p>
+    <p class="info" th:text="${testOrder.getAmount()}"></p>
+    <div class="center">
+        <button>
+            <a th:href="@{/order/{id}/edit(id=${testOrder.getId()})}">Edit!</a>
+        </button>
+    </div>
+    <br>
+    <form th:method="delete" th:action="@{/order/{id}/delete(id=${testOrder.getId()})}">
+        <button type="submit">Delete!</button>
+    </form>
+    <br>
+    <br>
+    <a class="username" sec:authentication="name" th:href="@{/account/info}">Account info!</a>
+</div>
+</body>
+</html>
