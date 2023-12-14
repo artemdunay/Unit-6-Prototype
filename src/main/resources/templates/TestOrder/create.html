@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(180deg, rgba(179, 0, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        div.container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #000000;
+            text-align: center;
+        }
+
+        label {
+            color: #3c005e;
+            display: block;
+            text-align: center;
+            line-height: 150%;
+            font-size: 1em;
+        }
+
+        input {
+            width: 100%;
+            padding: 2px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #6a1b9a;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            background-color: #6a1b9a;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3c005e;
+        }
+    </style>
+</head>
+<body>
+<br>
+<div class="container">
+    <form th:method="POST" th:action="@{/test}" th:object="${testOrder}" class="container">
+        <h1>Input Your Details:</h1>
+        <label for="name">Enter Name of the Order:</label>
+        <label for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+        <input name="name" type="text" th:field="*{name}" id="name"/>
+        <label for="customerName">Enter Your Name:</label>
+        <label for="customerName" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}"></label>
+        <input name="customerName" type="text" th:field="*{customerName}" id="customerName"/>
+        <label for="comment">Enter Your Email:</label>
+        <label for="customerEmail" th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}"></label>
+        <input name="customerEmail" type="text" th:field="*{customerEmail}" id="customerEmail">
+        <label for="comment">Enter Comment:</label>
+        <label for="comment" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></label>
+        <input name="comment" type="text" th:field="*{comment}" id="comment">
+        <label for="amount">Enter Amount:</label>
+        <label for="amount" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></label>
+        <input name="amount" type="number" th:field="*{amount}" id="amount">
+        <br>
+        <input type="submit" value="Submit!">
+    </form>
+</div>
+</body>
+</html>
